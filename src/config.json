@@ -1,0 +1,11 @@
+{
+    "base_url": "http://192.168.31.56/v1-openai",
+    "api_key": "gpustack_8fafca600abca9ae_68ff2b8098a00a7cda535d45e01cb200",
+    "model_name": "deepseek-r1-7B-FP16",
+    "prompt": "如果一个班级有 30 个学生，其中 15 个是男生，男生的比例是多少？",
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "top_p": 1,
+    "num_requests": 100
+  }
+  
