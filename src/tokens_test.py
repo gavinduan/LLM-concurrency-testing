@@ -123,11 +123,15 @@ def request_completion(headers, base_url, model, prompt, temperature, max_tokens
         if 'usage' in chunk:
             # 如果包含，将使用信息更新到 usage 字典中
             usage = chunk['usage']
-        # 合并当前响应块中的 delta 信息到 combined_response 中
-        combined_response['choices'][0]['delta'] = {
-            **combined_response['choices'][0]['delta'],
-            **chunk.get('choices', [{}])[0].get('delta', {})
-        }
+        # 检查choices是否存在且不为空
+        if chunk.get('choices') and len(chunk['choices']) > 0:
+            # 合并当前响应块中的 delta 信息到 combined_response 中
+            combined_response['choices'][0]['delta'] = {
+                # 保留已有的 delta 信息
+                **combined_response['choices'][0]['delta'],
+                # 合并新的 delta 信息，如果不存在则使用空字典
+                **chunk.get('choices', [{}])[0].get('delta', {})
+            }
     # 从 usage 字典中获取首 token 延迟，如果不存在则默认为 0
     first_token_latency = usage.get("time_to_first_token_ms", 0)
     # 从 usage 字典中获取非首 token 平均延迟，如果不存在则默认为 0
